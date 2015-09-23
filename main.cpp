@@ -8,44 +8,44 @@ template<typename M>
 class CMockObject
 {
 
-    #define DECL_TEN(hundreds, tens)    \
-        FINAL_V_DECL(hundreds, tens, 0) \
-        FINAL_V_DECL(hundreds, tens, 1) \
-        FINAL_V_DECL(hundreds, tens, 2) \
-        FINAL_V_DECL(hundreds, tens, 3) \
-        FINAL_V_DECL(hundreds, tens, 4) \
-        FINAL_V_DECL(hundreds, tens, 5) \
-        FINAL_V_DECL(hundreds, tens, 6) \
-        FINAL_V_DECL(hundreds, tens, 7) \
-        FINAL_V_DECL(hundreds, tens, 8) \
-        FINAL_V_DECL(hundreds, tens, 9)
+#define DECL_TEN(hundreds, tens)    \
+    FINAL_V_DECL(hundreds, tens, 0) \
+    FINAL_V_DECL(hundreds, tens, 1) \
+    FINAL_V_DECL(hundreds, tens, 2) \
+    FINAL_V_DECL(hundreds, tens, 3) \
+    FINAL_V_DECL(hundreds, tens, 4) \
+    FINAL_V_DECL(hundreds, tens, 5) \
+    FINAL_V_DECL(hundreds, tens, 6) \
+    FINAL_V_DECL(hundreds, tens, 7) \
+    FINAL_V_DECL(hundreds, tens, 8) \
+    FINAL_V_DECL(hundreds, tens, 9)
 
-    #define DECL_HUNDRED(hundreds)\
-        DECL_TEN(hundreds, 0) \
-        DECL_TEN(hundreds, 1) \
-        DECL_TEN(hundreds, 2) \
-        DECL_TEN(hundreds, 3) \
-        DECL_TEN(hundreds, 4) \
-        DECL_TEN(hundreds, 5) \
-        DECL_TEN(hundreds, 6) \
-        DECL_TEN(hundreds, 7) \
-        DECL_TEN(hundreds, 8) \
-        DECL_TEN(hundreds, 9)
+#define DECL_HUNDRED(hundreds)\
+    DECL_TEN(hundreds, 0) \
+    DECL_TEN(hundreds, 1) \
+    DECL_TEN(hundreds, 2) \
+    DECL_TEN(hundreds, 3) \
+    DECL_TEN(hundreds, 4) \
+    DECL_TEN(hundreds, 5) \
+    DECL_TEN(hundreds, 6) \
+    DECL_TEN(hundreds, 7) \
+    DECL_TEN(hundreds, 8) \
+    DECL_TEN(hundreds, 9)
 
-    #define DECL_RETRIEVER \
-        DECL_HUNDRED(0) \
-        DECL_HUNDRED(1) \
-        DECL_HUNDRED(2) \
-        DECL_HUNDRED(3) \
-        DECL_HUNDRED(4) \
-        DECL_HUNDRED(5) \
-        DECL_HUNDRED(6) \
-        DECL_HUNDRED(7) \
-        DECL_HUNDRED(8) \
-        DECL_HUNDRED(9)
+#define DECL_RETRIEVER \
+    DECL_HUNDRED(0) \
+    DECL_HUNDRED(1) \
+    DECL_HUNDRED(2) \
+    DECL_HUNDRED(3) \
+    DECL_HUNDRED(4) \
+    DECL_HUNDRED(5) \
+    DECL_HUNDRED(6) \
+    DECL_HUNDRED(7) \
+    DECL_HUNDRED(8) \
+    DECL_HUNDRED(9)
 
-    #define FINAL_V_DECL(hundreds, tens, units) \
-        virtual int V##hundreds##tens##units() { return hundreds * 100 + tens * 10 + units; };
+#define FINAL_V_DECL(hundreds, tens, units) \
+    virtual int V##hundreds##tens##units() { return hundreds * 100 + tens * 10 + units; };
 
     class CThisCallVtIdxRetriever
     {
@@ -81,10 +81,10 @@ class CMockObject
     };
 #endif
 
-    #undef DECL_RETRIEVER
-    #undef DECL_HUNDRED
-    #undef DECL_TEN
-    #undef FINAL_V_DECL
+#undef DECL_RETRIEVER
+#undef DECL_HUNDRED
+#undef DECL_TEN
+#undef FINAL_V_DECL
 
 protected:
     void** const m_ppVT;
@@ -231,21 +231,21 @@ DECL_INSTANTIATE_CONVENTION(DECL_EMPTY, DoInstantiateThisCall)
 
 
 
-#define DECLARE_MOCK_MEMBERS(src, mock)					\
-public:									\
-    typedef src TMockOrigin;						\
-    char m_membersAllocBuffer[sizeof(src)];				\
-public:									\
+#define DECLARE_MOCK_MEMBERS(src, mock)					        \
+public:									                        \
+    typedef src TMockOrigin;						            \
+    char m_membersAllocBuffer[sizeof(src)];				        \
+public:									                        \
     void EnumerateStructors(int& iMemberToCall, bool construct)
 
 
 // It is not necessary to declare POD types
-#define DECLARE_MOCK_MEMBER(member)					\
-        if (0 == iMemberToCall)						\
-        {								\
-            ExecuteStructor(&TMockOrigin::member, construct);		\
-            return;							\
-        }								\
+#define DECLARE_MOCK_MEMBER(member)					            \
+        if (0 == iMemberToCall)						            \
+        {								                        \
+            ExecuteStructor(&TMockOrigin::member, construct);   \
+            return;							                    \
+        }								                        \
         --iMemberToCall;
 
 //That's an example of its usage:
