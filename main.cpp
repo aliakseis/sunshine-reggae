@@ -1,11 +1,29 @@
 // MockObject.h
 //#pragma once
+
+// github.com/aliakseis/sunshine-reggae
+
 #include <memory.h>
 #include <assert.h>
 
+class CMockObjectBase
+{
+protected:
+    void** const m_ppVT;
+
+    CMockObjectBase()
+        : m_ppVT(new void*[1000])
+    {
+        memset(m_ppVT, 0, sizeof(void*) * 1000);
+    }
+    ~CMockObjectBase()
+    {
+        delete[] m_ppVT;
+    }
+};
 
 template<typename M>
-class CMockObject
+class CMockObject : public CMockObjectBase
 {
 
 #define DECL_TEN(hundreds, tens)    \
@@ -87,18 +105,13 @@ class CMockObject
 #undef FINAL_V_DECL
 
 protected:
-    void** const m_ppVT;
-
     CMockObject()
-        : m_ppVT(new void*[1000])
     {
-        memset(m_ppVT, 0, sizeof(void*) * 1000);
         ExecuteStructors(true);
     }
     ~CMockObject()
     {
         ExecuteStructors(false);
-        delete[] m_ppVT;
     }
 
 private:
