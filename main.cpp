@@ -470,7 +470,7 @@ int main()
 {
     CXTest test;
 
-    A* pA = (A*) &test;
+    A* volatile pA = (A*) &test; // volatile to prevent superfluous optimization 
 
     CHECK_EQUAL("777", pA->Dummy0(777));
 
